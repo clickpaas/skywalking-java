@@ -72,7 +72,12 @@ public class TomcatInvokeInterceptor implements InstanceMethodsAroundInterceptor
         CarrierItem next = contextCarrier.items();
         while (next.hasNext()) {
             next = next.next();
-            next.setHeadValue(request.getHeader(next.getHeadKey()));
+            if ("sw8".equals(next.getHeadKey())) {
+                String sw6 = request.getHeader("sw6");
+                next.setHeadValue(sw6 != null ? sw6 : request.getHeader("sw8"));
+            } else {
+                next.setHeadValue(request.getHeader(next.getHeadKey()));
+            }
         }
         String operationName =  String.join(":", request.getMethod(), request.getRequestURI());
         AbstractSpan span = ContextManager.createEntrySpan(operationName, contextCarrier);

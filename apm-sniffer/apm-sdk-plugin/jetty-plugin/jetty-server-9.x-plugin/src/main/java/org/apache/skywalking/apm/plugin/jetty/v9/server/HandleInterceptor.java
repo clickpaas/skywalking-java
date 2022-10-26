@@ -55,7 +55,12 @@ public class HandleInterceptor implements InstanceMethodsAroundInterceptor {
         CarrierItem next = contextCarrier.items();
         while (next.hasNext()) {
             next = next.next();
-            next.setHeadValue(servletRequest.getHeader(next.getHeadKey()));
+            if ("sw8".equals(next.getHeadKey())) {
+                String sw6 = servletRequest.getHeader("sw6");
+                next.setHeadValue(sw6 != null ? sw6 : servletRequest.getHeader("sw8"));
+            } else {
+                next.setHeadValue(servletRequest.getHeader(next.getHeadKey()));
+            }
         }
 
         AbstractSpan span = ContextManager.createEntrySpan(servletRequest.getRequestURI(), contextCarrier);
