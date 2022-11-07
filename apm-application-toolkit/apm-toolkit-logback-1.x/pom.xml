@@ -21,12 +21,12 @@
     <parent>
         <artifactId>apm-application-toolkit</artifactId>
         <groupId>org.apache.skywalking</groupId>
-        <version>8.9.0</version>
+        <version>8.9.0-SNAPSHOT</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>apm-toolkit-logback-1.x</artifactId>
-
+    <version>5.0.0-beta-SNAPSHOT</version>
     <properties>
         <logback-classic.version>1.2.3</logback-classic.version>
         <logstash.version>6.1</logstash.version>
@@ -44,6 +44,11 @@
             <artifactId>logstash-logback-encoder</artifactId>
             <version>${logstash.version}</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.bizcloud.arch</groupId>
+            <artifactId>routing-dispatcher</artifactId>
+            <version>1.1.0-SNAPSHOT</version>
         </dependency>
     </dependencies>
 </project>

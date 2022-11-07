@@ -26,7 +26,7 @@ public class LogbackMDCPatternConverter extends MDCConverter {
     private static final String CONVERT_TRACE_ID_KEY = "tid";
     private static final String CONVERT_SKYWALKING_CONTEXT_KEY = "sw_ctx";
 
-    private boolean convert4TID = false;
+    private static boolean convert4TID = false;
     private boolean convert4SWCTX = false;
 
     @Override
@@ -46,6 +46,12 @@ public class LogbackMDCPatternConverter extends MDCConverter {
     @Override
     public String convert(ILoggingEvent iLoggingEvent) {
         if (convert4TID) {
+            if (iLoggingEvent.getMDCPropertyMap() != null) {
+                String tid = iLoggingEvent.getMDCPropertyMap().get("_tid");
+                if (tid != null) {
+                    return "TID:" + tid;
+                }
+            }
             return convertTID(iLoggingEvent);
         } else if (convert4SWCTX) {
             return convertSkyWalkingContext(iLoggingEvent);
